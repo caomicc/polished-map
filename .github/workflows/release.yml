@@ -190,6 +190,9 @@ jobs:
           </plist>
           EOF
 
+          # Ad-hoc sign so macOS shows "unidentified developer" instead of "damaged"
+          codesign --deep --force --sign - "$APP"
+
           zip -r polished-map-macos.zip "$APP"
 
       - name: Upload artifact
@@ -282,6 +285,21 @@ jobs:
         with:
           name: Polished Map++ ${{ github.ref_name }}
           generate_release_notes: true
+          body: |
+            ## Installation
+
+            **macOS:** Unzip, then right-click → Open (first launch only). If macOS says the app is damaged, remove the quarantine attribute first:
+            ```
+            xattr -d com.apple.quarantine "Polished Map++.app"
+            ```
+
+            **Windows:** Unzip and run `polishedmap-plusplus.exe`. If SmartScreen appears, click "More info" → "Run anyway". Requires the [Visual C++ Redistributable for VS 2019 (x86)](https://aka.ms/vs/16/release/vc_redist.x86.exe).
+
+            **Linux:** Make the AppImage executable and run it:
+            ```
+            chmod +x polished-map-linux-x86_64.AppImage
+            ./polished-map-linux-x86_64.AppImage
+            ```
           files: |
             polished-map-linux-x86_64.AppImage
             polished-map-macos.zip
