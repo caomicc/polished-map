@@ -25,7 +25,7 @@ jobs:
             g++ autoconf zlib1g-dev libpng-dev \
             libx11-dev libxext-dev libxft-dev libxinerama-dev \
             libxcursor-dev libxrender-dev libxfixes-dev \
-            libpango1.0-dev libcairo2-dev \
+            libxpm-dev libpango1.0-dev libcairo2-dev \
             imagemagick
 
       - name: Cache FLTK
